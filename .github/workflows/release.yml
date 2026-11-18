@@ -1,0 +1,27 @@
+name: Publish SKOOLchat APK
+
+on:
+  push:
+    paths:
+      - 'SKOOLchat.apk'
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Publish public download
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: SKOOLchat Android (latest)
+          make_latest: true
+          overwrite_files: true
+          body: Download SKOOLchat.apk below and open it on your Android phone to install.
+          files: SKOOLchat.apk
